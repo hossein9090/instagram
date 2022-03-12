@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+{% block title %}edit profile{% endblock title %}
+{% block content %}
+    <div class="row my-3 p-3">
+        <img class="rounded-circle account-img" src="{{ user.profile.avatar.url }} " style="cursor: pointer;"/>
+    </div>
+
+    <div class="form-content">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="small mb-1"><h3>matn:</h3></label>
+                            {{ form.description }}<br>
+{#                        <label class="small mb-1"><h3>bio:</h3></label><br>#}
+{#                            {{ form.bio }}<br>#}
+{#                        <h3>page status :</h3>#}
+{#                        <input type="radio" id="public" name="fav_language" value="public">#}
+{#                        <label for="public">public</label><br>#}
+{#                        <input type="radio" id="private" name="fav_language" value="private">#}
+{#                        <label for="private">private</label><br>#}
+
+
+                    </div>
+                    <div class="form-group">
+{#                        <a href="#">Change Password</a>#}
+                        <hr>
+{#                        <label class="small mb-1">Change Avatar:</label>#}
+{#                        {{ profile_form.avatar }}#}
+                    </div>
+{#                    <label class="small mb-1">Bio:</label>#}
+                </div>
+            </div>
+            <br><br>
+            <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
+            <button type="reset" class="btn btn-dark btn-lg">Reset</button>
+
+        </form>
+    </div>
+{% endblock content %}
+</body>
+</html>

@@ -1,0 +1,22 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>post_detail</title>
+</head>
+<body>
+     <form method="POST" action="{% url "post_detailview" post_id%}">
+         <label name="comment"></label>
+             {% csrf_token %}
+         <textarea  name="comment"></textarea>
+             {% csrf_token %}
+
+         <input type="submit">
+
+{#    {% csrf_token %}#}
+{#    {{comment_form.as_p}}#}
+
+  </form>
+</body>
+</html>

@@ -1,0 +1,175 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>profile</title>
+
+
+
+      <!-- bootstrap file -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- bootstrap file-->
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <!-- main css -->
+  <link rel="stylesheet" type="text/css" href="{% static "index.css" %}" />
+
+
+
+
+      <header class="row">
+
+    <!-- navbar-->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-toggle="collapse" data-target="#mainNavBar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <button type="button" class="collapsible">settings</button>
+            <div class="content" >
+                <a class="navbar-brand" class="styleheader" href="{% url "editacc" %}">ادیت پروفایل</a>
+                <a class="navbar-brand" class="styleheader" href="{% url "editacc" %}">بازیابی رمز</a>
+{#                <p><button type="button" class="collapsible">ادیت پروفایل</button></p>#}
+{#                <p><button type="button" class="collapsible">بازیابی رمز</button></p>#}
+            </div>
+{#          <a class="navbar-brand" class="styleheader" href="{% url "editacc" %}">settings</a>#}
+{#          <a class="navbar-brand" class="styleheader" href="{% url "editacc" %}">settings</a>#}
+
+        </div>
+        <div class="collapse navbar-collapse" id="mainNavBar">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{% url "showfriendpost" %}">پست رفیقام</a></li>
+            <li><a href="{% url "searching" %}">سرچ</a></li>
+            <li><a href="{% url "show_follow_req" %}">درخواست ها</a></li>
+            <li><a href="{% url "index" %}">Home</a></li>
+
+            {% if user.is_authenticated %}
+            <li><a href="{% url "logout" %}"><span class="glyphicon glyphicon-log-out"></span> &nbsp; Logout</a></li>
+            {% else %}
+            <li><a href="{% url "register" %}"><span class="glyphicon glyphicon-user"></span> &nbsp; Sign up</a></li>
+            <li><a href="{% url "login" %}"><span class="glyphicon glyphicon-log-in"></span> &nbsp; Log in</a></li>
+            {% endif %}
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+</head>
+<body>
+
+{% for q in account_qs %}
+    {% if q.user.id == inuser %}
+        <h1>hello: {{ q.user }}</h1>
+        {% if q.profpic %}
+            <img src="{{ q.profpic.url }}" width="250px" height="300px" >
+        {% endif %}
+        {% if not q.profpic %}
+            <img src="/media/upload/profpic.jpg" style="width:250px ; height:300px"  >
+        {% endif %}
+
+        <h2>Follower : <a href="{% url "show_follower" %}" >{{ follower }}</a></h2>
+        <h2>Following : <a href="{% url "show_following" %}" >{{ following }}</a></h2>
+        <h3>name:{{ q.name }}</h3>
+        <h3>user:{{ q.user }}</h3>
+        <h3>status:{{ q.status }}</h3>
+
+{#        <h3><p>follower:{{ q.name }}</p><p>folloing:{{ q.name }}</p></h3>#}
+        <h3><p>biography:{{ q.bio }}</p></h3>
+
+        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@<br>
+
+{#         <button type="button" class="collapsible">settings</button>#}
+{#            <div class="content">#}
+{#                <p><button type="button" class="collapsible">ادیت پروفایل</button></p>#}
+{#                <p><button type="button" class="collapsible">بازیابی رمز</button></p>#}
+{#            </div>#}
+    {% endif %}
+{% endfor %}
+<h1>post:</h1>
+<div>
+{% for q in post_qs %}
+     <img src= "{{ q.image.url }}"  width="230px" height="300px" ><br>
+{#    <h2>idpost :{{ q.id }}</h2>#}
+    <button type="button" class="collapsible">comments</button>
+    <div class="content">
+        <button type="button">افزودن کامنت</button>
+        {% for c in q.commentpost.all %}
+            <p>{{ c.user }}:{{ c.description }}</p><br>
+        {% endfor %}
+    </div><br>
+    ----------------------------------------------------------------------<br>
+{#      <form action="{% url 'blogpost_like' q.id %}" method="POST">#}
+{#	{% csrf_token %}#}
+{##}
+{#	{% if post_is_liked %}#}
+{#	<button type="submit" name="blogpost_id" value="{{q.id}}" class="btn btn-info">Unlike</button>#}
+{#	{% else %}#}
+{#	<button type="submit" name="blogpost_id" value="{{q.id}}" class="btn btn-info">Like</button>#}
+{#	{% endif %}#}
+{#  </form>#}
+
+{#    {% if q.like %}#}
+{#    <a href="{% url "index" %}">LIKE</a>#}
+{#        {% else %}#}
+{#        <a href="{% url "index" %}">DISLIKE</a>#}
+{#    {% endif %}#}
+    <br><hr>
+
+
+{% endfor %}
+
+{#    {% if user.is_authenticated %}#}
+
+{#{% else %}#}
+{#  <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to like this article!</a><br>#}
+{#{% endif %}#}
+{#<strong class="text-secondary">{{ number_of_likes }} Like{{ number_of_likes|pluralize }}</strong>#}
+
+</div>
+
+{#<p>{{ inuser }}</p>#}
+{#<style>#}
+{#.content {#}
+{#  padding: 0 18px;#}
+{#  background-color: white;#}
+{#  max-height: 0;#}
+{#  overflow: hidden;#}
+{#  transition: max-height 0.2s ease-out;#}
+{#}#}
+{#</style>#}
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
+</script>
+</body>
+</html>
+

@@ -1,0 +1,152 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>settings</title>
+
+
+
+      <!-- bootstrap file -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- bootstrap file-->
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <!-- main css -->
+  <link rel="stylesheet" type="text/css" href="{% static "index.css" %}" />
+
+
+
+
+      <header class="row">
+
+    <!-- navbar-->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button class="navbar-toggle" data-toggle="collapse" data-target="#mainNavBar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" class="styleheader" href="{% url "index" %}">settings</a>
+        </div>
+        <div class="collapse navbar-collapse" id="mainNavBar">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{% url "index" %}">پست رفیقام</a></li>
+            <li><a href="{% url "index" %}">سرچ</a></li>
+            <li><a href="{% url "index" %}">درخواست ها</a></li>
+            <li><a href="{% url "index" %}">Home</a></li>
+
+            {% if user.is_authenticated %}
+            <li><a href="{% url "logout" %}"><span class="glyphicon glyphicon-log-out"></span> &nbsp; Logout</a></li>
+            {% else %}
+            <li><a href="{% url "register" %}"><span class="glyphicon glyphicon-user"></span> &nbsp; Sign up</a></li>
+            <li><a href="{% url "login" %}"><span class="glyphicon glyphicon-log-in"></span> &nbsp; Log in</a></li>
+            {% endif %}
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+</head>
+<body>
+
+{% block title %}edit profile{% endblock title %}
+{% block content %}
+    <div class="row my-3 p-3">
+        <img class="rounded-circle account-img" src="{{ user.profile.avatar.url }} " style="cursor: pointer;"/>
+    </div>
+{#    {% if user_form.errors %}#}
+{#        <div class="alert alert-danger alert-dismissible" role="alert">#}
+{#            <div id="form_errors">#}
+{#                {% for key, value in user_form.errors.items %}#}
+{#                    <strong>{{ value }}</strong>#}
+{#                {% endfor %}#}
+{#            </div>#}
+{#            <button type="button" class="close" data-dismiss="alert" aria-label="Close">#}
+{#                <span aria-hidden="true">&times;</span>#}
+{#            </button>#}
+{#        </div>#}
+{#    {% endif %}#}
+    <div class="form-content">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <h3>select profile picture :</h3>
+                        {{ form.profpic }}<br>
+                        <label class="small mb-1"><h3>name:</h3></label>
+                            {{ form.name }}<br>
+                        <label class="small mb-1"><h3>bio:</h3></label><br>
+                            {{ form.bio }}<br>
+                        <h3>page status :</h3>
+{#                        <input type="radio" id="public" name="fav_language" value="public">#}
+{#                        <label for="public">public</label><br>#}
+                        {{ form.status }}
+
+{#                        <input type="radio" id="private" name="fav_language" value="private">#}
+{#                        <label for="private">private</label><br>#}
+
+
+
+                    </div>
+                    <div class="form-group">
+{#                        <a href="#">Change Password</a>#}
+                        <hr>
+{#                        <label class="small mb-1">Change Avatar:</label>#}
+{#                        {{ profile_form.avatar }}#}
+                    </div>
+{#                    <label class="small mb-1">Bio:</label>#}
+                </div>
+            </div>
+            <br><br>
+            <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
+            <button type="reset" class="btn btn-dark btn-lg">Reset</button>
+
+        </form>
+    </div>
+{% endblock content %}
+
+
+{# <input type="radio" id="html" name="fav_language" value="HTML">#}
+{#<label for="html">HTML</label><br>#}
+{#<input type="radio" id="css" name="fav_language" value="CSS">#}
+{#<label for="css">CSS</label><br>#}
+{#<input type="radio" id="javascript" name="fav_language" value="JavaScript">#}
+{#<label for="javascript">JavaScript</label>#}
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

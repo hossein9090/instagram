@@ -1,0 +1,24 @@
+.profile-head {
+    transform: translateY(5rem)
+}
+
+.cover {
+    background-image: url(https://assets.website-files.com/5f204aba8e0f187e7fb85a87/5f210a533185e7434d9efcab_hero%20img.jpg);
+    background-size: cover;
+    background-repeat: no-repeat
+}
+
+body {
+    background: whitesmoke;
+    /*background: linear-gradient(to right, #e96443, #904e95);*/
+    min-height: 100vh;
+    overflow-x: hidden
+}
+
+.content {
+  padding: 0 18px;
+  background-color: darkgray;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}

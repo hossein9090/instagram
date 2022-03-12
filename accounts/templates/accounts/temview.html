@@ -1,0 +1,46 @@
+<canvas id="chart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+<script>
+window.onload = function () {
+  // We render via Django template
+  var data = [
+    {% for item in data %}
+      {{ item.value }},
+    {% endfor %}
+  ]
+
+  // We render via Django template
+  var labels = [
+    {% for item in data %}
+      "{{ item.date }}",
+    {% endfor %}
+  ]
+
+  console.log(data);
+  console.log(labels);
+
+  var config = {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'A random dataset',
+          backgroundColor: 'black',
+          borderColor: 'lightblue',
+          data: data,
+          fill: false
+        }
+      ]
+    },
+    options: {
+      responsive: true
+    }
+  };
+
+  var ctx = document.getElementById('chart').getContext('2d');
+  window.myLine = new Chart(ctx, config);
+};
+
+</script>

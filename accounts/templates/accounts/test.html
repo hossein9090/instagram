@@ -1,0 +1,166 @@
+{#<!DOCTYPE html>#}
+{#<html>#}
+{#<head>#}
+{#  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />#}
+{#  <title>Google Maps Multiple Markers</title>#}
+{#  <script src="http://maps.google.com/maps/api/js?sensor=false"#}
+{#          type="text/javascript"></script>#}
+{#</head>#}
+{#<body>#}
+{#  <div id="map" style="width: 500px; height: 400px;"></div>#}
+{##}
+{#  <script type="text/javascript">#}
+{##}
+{#    var locations = [#}
+{#        {% for item in data %}#}
+{#            ['TEST', {{ item.value }}, {{ item.value }}, 1],#}
+{#        {% endfor %}#}
+{#      ['<a href="{% url "index" %}">ادیت پروفایل</a>', 35.749, 51.378, 4],#}
+{#      ['Coogee Beach', -33.923036, 151.259052, 5],#}
+{#      ['Cronulla Beach', -34.028249, 151.157507, 3],#}
+{#      ['Manly Beach', 35.352, 51.098, 2],#}
+{#      ['Maroubra Beach', 35.649, 51.464, 1]#}
+{#    ];#}
+{##}
+{#      console.log(data);#}
+{#  console.log(labels);#}
+{##}
+{#  var config = {#}
+{#    type: 'line',#}
+{#    data: {#}
+{#      labels: labels,#}
+{#      datasets: [#}
+{#        {#}
+{#          label: 'A random dataset',#}
+{#          backgroundColor: 'black',#}
+{#          borderColor: 'lightblue',#}
+{#          data: data,#}
+{#          fill: false#}
+{#        }#}
+{#      ]#}
+{#    },#}
+{#    options: {#}
+{#      responsive: true#}
+{#    }#}
+{#  };#}
+{##}
+{#  var ctx = document.getElementById('chart').getContext('2d');#}
+{#  window.myLine = new Chart(ctx, config);#}
+{##}
+{##}
+{##}
+{##}
+{#    var map = new google.maps.Map(document.getElementById('map'), {#}
+{#      zoom: 10,#}
+{#      center: new google.maps.LatLng(35.352, 51.098),#}
+{#      mapTypeId: google.maps.MapTypeId.ROADMAP#}
+{#    });#}
+{##}
+{#    var infowindow = new google.maps.InfoWindow();#}
+{##}
+{#    var marker, i;#}
+{##}
+{#    for (i = 0; i < locations.length; i++) {#}
+{#      marker = new google.maps.Marker({#}
+{#        position: new google.maps.LatLng(locations[i][1], locations[i][2]),#}
+{#        map: map#}
+{#      });#}
+{##}
+{#      google.maps.event.addListener(marker, 'click', (function(marker, i) {#}
+{#        return function() {#}
+{#          infowindow.setContent(locations[i][0]);#}
+{#          infowindow.open(map, marker);#}
+{#        }#}
+{#      })(marker, i));#}
+{##}
+{##}
+{#    }#}
+{#  </script>#}
+{#</body>#}
+{#</html>#}
+{##}
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add Map</title>
+    <link rel="stylesheet" type="text/css" href="/accounts/static/accounts/css/map.css" />
+
+    <style type="text/css">
+      /* Set the size of the div element that contains the map */
+      #map {
+        height: 400px;
+        /* The height is 400 pixels */
+        width: 50%;
+        /* The width is the width of the web page */
+      }
+    </style>
+    <script>
+      // Initialize and add the map
+      function initMap() {
+        // The location of Uluru
+        const uluru = { lat: 35.761, lng: 51.394 };
+        {#const uluru = [#}
+        {#      ['Bondi Beach', -33.890542, 151.274856, 4],#}
+        {#      ['Coogee Beach', -33.923036, 151.259052, 5],#}
+        {#      ['Cronulla Beach', -34.028249, 151.157507, 3],#}
+        {#      ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],#}
+        {#      ['Maroubra Beach', -33.950198, 151.259302, 1]#}
+        ];
+        // The map, centered at Uluru
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 4,
+          center: uluru,
+        });
+        // The marker, positioned at Uluru
+        const marker = new google.maps.Marker({
+          position: uluru,
+          map: map,
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <h3>My Google Maps Demo</h3>
+    <!--The div element for the map -->
+    <div id="map"></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCVMDSqgDLpUO5U_xXSQCqB6zdv2sahlM&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCVMDSqgDLpUO5U_xXSQCqB6zdv2sahlM&callback=initMap">
+</script>
+
+    <script>
+        // The location of Uluru
+        const uluru = {lat: 35.761, lng: 51.394};
+        // The map, centered at Uluru
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 4,
+            center: uluru,
+        });
+
+        // The marker, positioned at Uluru
+        const marker = new google.maps.Marker({
+            position: uluru,
+            map: map,
+        });
+    </script>
+
+  </body>
+</html>
+
+

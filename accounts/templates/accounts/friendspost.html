@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>friendpost</title>
+</head>
+<body>
+<h2>friendspost:</h2>
+{% for q in profiles_qs %}
+    {% if q.verify  %}
+    <h2 style="color: lawngreen">name : {{ q.profile }}</h2>
+
+    {% for s in q.profile.accountpost.all %}
+        ----------------------------------------------------------------------<br>
+        {{ s.title }}<br>
+{#        {{ s.commentpost.all }}<br>#}
+        <img src="{{ s.image.url }}" width="250px" height="300px"><br>
+        <p>nomber of likes:{{ s.likes.count }}</p><br>
+        <a href="{% url "dolike" s.id  %}" onchange="ajaxRequest();"><span class="glyphicon glyphicon-log-in"></span> LIKE</a><br>
+        <a href="{% url "unlike" s.id  %}" onchange="ajaxRequest();"><span class="glyphicon glyphicon-log-in"></span> UNLIKE</a><br>
+        <button type="button" class="collapsible">comments</button>
+        <div class="content">
+{#         <button type="button" >افزودن کامنت</button>#}
+        <a href="{% url "post_detailview" s.id  %}" onchange="ajaxRequest();"><span class="glyphicon glyphicon-log-in"></span> افزودن کامنت</a><br>
+        {% for c in s.commentpost.all %}
+            {% if tu == c.user %}
+                <a href="{% url "delet_comment" c.id %}">delet..</a><br>{{ c.user }}:{{ c.description }}<br>
+            {% elif not tu == c.user %}
+                <p>{{ c.user }}:{{ c.description }}</p><br>
+            {% endif %}
+{#            <p>{{ c.user }}:{{ c.description }}</p><br>#}
+            {% endfor %}
+        </div><br>
+        ----------------------------------------------------------------------<br>
+        {% endfor %}
+    {% endif %}
+{% endfor %}
+{#<h3>p={{ p }}</h3>#}
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
+</script>
+
+
+</body>
+</html>

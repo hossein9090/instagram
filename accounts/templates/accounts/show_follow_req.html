@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>show_follow_req</title>
+</head>
+<body>
+show_follow_req:<br>
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@<br><br>
+{% for f in req %}
+    {{ f.user }}<br>
+        <a href="{% url "showsearchingprofile" f.user.id  %}" > نمایش پروفایل  </a><br>
+    <a href="{% url "verify_follow_req" f.user.id  %}" >قبول کردن درخواست </a><br>
+    --------------------------------------------------------------------
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>search2</title>
+</head>
+<body>
+<h1>ok</h1>
+    {% for user in users_finder %}
+{#        {% for q in account_qs %}#}
+        {% if user.accuser.status == "public" %}
+         {{ user }}<a href="{% url "showsearchingprofile" user.accuser.id %}" onchange="ajaxRequest();"><span class="glyphicon glyphicon-log-in"></span> &nbsp; نمایش پروفایل</a><br>
+        {% elif user.accuser.status == "private" %}
+         {{ user }}<a href="{% url "showsearchingprofile" user.accuser.id %}" onchange="ajaxRequest();"><span class="glyphicon glyphicon-log-in"></span> ارسال درخواست دوستی </a><br>
+
+{#        <h2>{{ user }}<button type="button" href="{% url "showsearchingprofile" user.id %}">نمایش پروفایل</button></h2>#}
+{#        {% endfor %}#}
+        {% endif %}
+{% endfor %}
+
+{#<h1>{{ pikey }}</h1>#}
+</body>
+</html>

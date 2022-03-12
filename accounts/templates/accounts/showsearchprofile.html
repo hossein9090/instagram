@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>showsearchprofile</title>
+</head>
+<body>
+{% for q in account_qs %}
+    {% if q.profpic %}
+        <img src="{{ q.profpic.url }}" width="250px" height="300px">
+    {% endif %}
+    {% if not q.profpic %}
+        <img src="/media/upload/profpic.jpg" style="width:250px ; height:300px">
+    {% endif %}
+    <h2>Follower : {{ follower }}</h2>
+    <h2>Following : {{ following }}</h2>
+    <a href="{% url "doingfollow" q.id  %}" onchange="ajaxRequest();"><span class="glyphicon glyphicon-log-in"></span> follow </a><br>
+    <a href="{% url "unfollow" q.id %}" onchange="ajaxRequest();"><span class="glyphicon glyphicon-log-in"></span>unfollow</a><br>
+{# <img src="{{ q.profpic.url }}" width="250px" height="300px"><br>#}
+ <h2>name:{{ q.name }}</h2>
+<h2>user:{{ q.user }}</h2>
+<h2>bio{{ q.bio }}</h2>
+{% endfor %}
+{% for q in account_qs %}
+ {% if q.status == 'private' %}
+     {% if not v_followe.verify  %}----------------------------------------------------------------------------------
+{#     <button type="button">ارسال درخواست دوستی</button><br>#}
+     <img src="/media/mainpic/privare.jpeg" style="width:600px ; height:600px">
+     {% else %}----------------------------------------------------------------------------------
+         {% for p in post_qs %}
+             <h2>posts:</h2>
+             <h2>name:{{ p.title }}</h2>
+             <img src="{{ p.image.url }}" width="250px" height="300px"><br>
+             <p>nomber of likes:{{ p.likes.count }}</p><br>
+             <a href="{% url "dolike" p.id %}" onchange="ajaxRequest();"><span
+                     class="glyphicon glyphicon-log-in"></span> LIKE</a><br>
+             <a href="{% url "unlike" p.id %}" onchange="ajaxRequest();"><span
+                     class="glyphicon glyphicon-log-in"></span>UNLIKE</a><br>
+             <button type="button" class="collapsible">comments</button>
+             <div class="content">
+                 {#                <button type="button">افزودن کامنت</button>#}
+                 <a href="{% url "post_detailview" p.id %}" onchange="ajaxRequest();"><span
+                         class="glyphicon glyphicon-log-in"></span> افزودن کامنت</a><br>
+                 {% for c in p.commentpost.all %}
+                     {% if tu == c.user %}
+                         <a href="{% url "delet_comment" c.id %}">delet..</a><br>{{ c.user }}:{{ c.description }}<br>
+                     {% elif not tu == c.user %}
+                         <p>{{ c.user }}:{{ c.description }}</p><br>
+                     {% endif %}
+                 {% endfor %}
+             </div><br>
+             ----------------------------------------------------------------------<br>
+         {% endfor %}
+
+         {% endif %}
+    {% elif q.status == 'public' %}
+        {% for p in post_qs %}
+            <h2>posts:</h2>
+            <h2>name:{{ p.title }}</h2>
+            <img src="{{ p.image.url }}" width="250px" height="300px"><br>
+             <p>nomber of likes:{{ p.likes.count }}</p><br>
+             <a href="{% url "dolike" p.id  %}" onchange="ajaxRequest();"><span class="glyphicon glyphicon-log-in"></span> LIKE</a><br>
+             <a href="{% url "unlike" p.id %}" onchange="ajaxRequest();"><span class="glyphicon glyphicon-log-in"></span>UNLIKE</a><br>
+            <button type="button" class="collapsible">comments</button>
+            <div class="content">
+{#                <button type="button">افزودن کامنت</button>#}
+                <a href="{% url "post_detailview" p.id  %}" onchange="ajaxRequest();"><span class="glyphicon glyphicon-log-in"></span> افزودن کامنت</a><br>
+                {% for c in p.commentpost.all %}
+                    {% if tu == c.user %}
+                    <a href="{% url "delet_comment" c.id  %}" >delet..</a><br>{{ c.user }}:{{ c.description }}<br>
+                    {% elif not tu == c.user %}
+                     <p>{{ c.user }}:{{ c.description }}</p><br>
+                     {% endif %}
+                {% endfor %}
+            </div><br>
+            ----------------------------------------------------------------------<br>
+        {% endfor %}
+    {% endif %}
+
+
+{% endfor %}
+{#{% endfor %}#}
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
+</script>
+</body>
+</html>

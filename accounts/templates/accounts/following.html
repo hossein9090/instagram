@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>following</title>
+</head>
+<body>
+following:
+{% for f in following %}
+    <h2>{{ f.profile }}<a href="{% url "showsearchingprofile" f.profile.id %}" > &nbsp; نمایش پروفایل</a></h2></h2>
+{% endfor %}
+</body>
+</html>
